@@ -1,0 +1,50 @@
+.logo {
+    width: 5%
+}
+
+.detail {
+    width: 95%;
+    padding-left: 25px;
+}
+
+.detail td {
+    font-size: 24px;
+}
+
+.ui-datascroller .ui-datascroller-item {
+    border-bottom: 1px solid #A8A8A8;
+    padding: 25px 10px;
+    /* with the exported variables from Nova and Luna Themes*/
+}
+
+.BodyBackground {
+    background: rgb(233, 233, 233);
+}
+
+.Div {
+    width: 1000px;
+    height: 1000px;
+    background: white;
+    margin-left: 300px;
+}
+
+.SearchDiv {
+    margin-top: 27px;
+    margin-left: 170px;
+    position: absolute;
+    top: 0;
+}
+
+.ExitDiv {
+    margin-top: 27px;
+    margin-left: 800px;
+    position: absolute;
+    top: 0;
+}
+
+.UpDiv {
+    width: 1000px;
+    height: 70px;
+    background: rgb(49, 46, 95);
+    margin-left: 300px;
+}

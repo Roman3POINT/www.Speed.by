@@ -1,0 +1,17 @@
+.BodyBackground {
+    background: rgb(233, 233, 233);
+}
+
+.Div {
+    width: 1000px;
+    height: 1000px;
+    background: white;
+    margin-left: 300px;
+}
+
+.UpDiv {
+    width: 1000px;
+    height: 70px;
+    background: rgb(49, 46, 95);
+    margin-left: 300px;
+}

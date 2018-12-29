@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: bahatka
+  Date: 30.11.2018
+  Time: 14:03
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+    <title>Профиль</title>
+
+    <h:outputStylesheet name="profile.css" library="css" />
+    <h:outputStylesheet name="speedBy.css" library="css" />
+
+</h:head>
+
+<h:body styleClass="BodyBackground">
+
+    <div class="UpDiv">
+
+        <p:link outcome="authorization.xhtml">
+            <p:graphicImage styleClass="LogoImage" value="resources/images/SpeedByLogo.jpg"></p:graphicImage>
+        </p:link>
+
+        <p:outputLabel styleClass="LogoText" value="Speed.by"></p:outputLabel>
+
+        <div class="SearchDiv">
+            <p:commandButton value="Список всех объявлений" action="#{profileUser.toFilterListAnnouncement}" />
+        </div>
+
+        <div class="ExitDiv">
+            <p:commandButton value="Выйти" action="#{profileUser.Exit}" styleClass="ui-button"></p:commandButton>
+        </div>
+
+    </div>
+
+    <div class="Div">
+
+        <center>
+            <div>
+                <p:outputLabel styleClass="ui-hide-label TextProfile" value="Профиль"/>
+            </div>
+        </center>
+
+        <br/>
+        <h:form id="add">
+            <p:fieldset legend="Конфиденциальная информация" toggleable="true" toggleSpeed="500">
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <p:graphicImage value="/resources/images/ProfilePhoto.jpg"></p:graphicImage>
+
+                    <p:outputLabel value="Вся ваша информация является конфиденциальной. При потери денежных средств или данных аккаунта компания не несет ответственность за него. Вся ваша контактная информация, пароль, логин, за нее вы несете ответственность самостоятельно.
+                    Также при попытке использовать мультиаккаунтность или других любых видов незаконной деятельности вы будите нести ответственность в соответствии с административным и уголовным кодексами Республики Беларусь"/>
+                    <p:outputLabel value="ФИО: "/>
+                    <p:outputLabel value="#{profileUser.fullName}"/>
+                    <p:outputLabel value="Возраст: "/>
+                    <p:outputLabel value="#{profileUser.age}"/>
+                    <p:outputLabel value="Номер: "/>
+                    <p:outputLabel value="#{profileUser.phoneNumber}"/>
+                    <p:outputLabel value="E-mail: "/>
+                    <p:outputLabel value="#{profileUser.login}"/>
+                </h:panelGrid>
+            </p:fieldset>
+        </h:form>
+
+        <br/>
+
+        <p:outputLabel value="Вы хотите добавить объявление? "/>
+        <p:commandButton value="Добавить" actionListener="#{dropdownView.loginAttribute}" action="#{profileUser.toAddCar}">
+            <f:attribute name="addLogin" value="#{profileUser.login}"/>
+            <f:param name="addingLogin" value="#{profileUser.login}"/>
+        </p:commandButton>
+
+        <br/>
+        <br/>
+
+        <h:form>
+            <p:dataScroller id="myAnnouncement" value="#{dataScrollerView.announcementList}" var="announcement" chunkSize="5" mode="inline" scrollHeight="700">
+                <f:facet name="header">
+                    Мои объявления
+                </f:facet>
+
+                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+                    <p:outputPanel>
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <p:outputLabel value="Информация: " >
+                                <br/>
+                                <p:outputLabel value="Номер заказа " />
+                                <p:outputLabel value="##{announcement.id}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Иномарка:" />
+                                <p:outputLabel value="#{announcement.cars.car.name}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Модель:" />
+                                <p:outputLabel value="#{announcement.cars.name}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Двигатель:" />
+                                <p:outputLabel value="#{announcement.engine}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Цвет:" />
+                                <p:outputLabel value="#{announcement.color}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Дата выпуска:" />
+                                <p:outputLabel value="#{announcement.dateOfIssue}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Цена:" />
+                                <p:outputLabel value="#{announcement.price}$" style="font-weight: bold"/>
+                                <br/>
+                                <p:outputLabel value="Описание:" />
+                                <p:outputLabel value="#{announcement.description}" style="font-weight: bold"/>
+                            </p:outputLabel>
+
+                            <p:commandButton value="Редактировать" update="myAnnouncement" action="#{dataScrollerView.editAnnouncement}">
+                                <f:setPropertyActionListener value="#{announcement}" target="#{dataScrollerView.announcement}" />
+                            </p:commandButton>
+
+                            <p:commandButton value="Удалить" update="myAnnouncement" action="#{dataScrollerView.deleteAnnouncement}">
+                                <f:setPropertyActionListener value="#{announcement}" target="#{dataScrollerView.announcement}" />
+                                <p:ajax event="click" update="myAnnouncement" process="@this" partialSubmit="true"/>
+                            </p:commandButton>
+
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:form>
+
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: bahatka
+  Date: 30.11.2018
+  Time: 14:03
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+    <title>Регистрация</title>
+
+    <h:outputStylesheet name="/registration.css" library="css"/>
+    <h:outputStylesheet name="speedBy.css" library="css" />
+
+</h:head>
+
+<h:body styleClass="BImage">
+
+    <div class="UpDiv">
+
+        <p:link outcome="profile.xhtml">
+            <p:graphicImage styleClass="LogoImage" value="resources/images/SpeedByLogo.jpg"></p:graphicImage>
+        </p:link>
+
+        <p:outputLabel styleClass="LogoText" value="Speed.by"></p:outputLabel>
+
+        <a href="https://vk.com/">
+            <p:graphicImage styleClass="vkIcon" value="resources/images/VKIcon.png"></p:graphicImage>
+        </a>
+
+        <a href="https://www.instagram.com/">
+            <p:graphicImage styleClass="instagramIcon" value="resources/images/InstagramIcon.png"></p:graphicImage>
+        </a>
+
+        <a href="https://www.facebook.com/">
+            <p:graphicImage styleClass="facebookIcon" value="resources/images/FacebookIcon.png"></p:graphicImage>
+        </a>
+    </div>
+
+    <div class="OuterRegisterDiv">
+        <div class="RegisterDiv">
+            <br/>
+            <center>
+                <p:outputLabel styleClass="ui-hide-label" value="Форма Регистрации "></p:outputLabel>
+            </center>
+            <h:form id="registration">
+                <center>
+                    <br/>
+                    <p:outputLabel value="Введите Имя: "/>
+                    <br/>
+                    <p:inputText placeholder="Имя" id="name" required="true" value="#{userBean.fullName}" styleClass="ui-inputfield ui-inputtext">
+                        <f:validateLength minimum="12"/>
+                    </p:inputText>
+                    <br/>
+                    <br/>
+                    <p:outputLabel value="Введите возраст: "/>
+                    <br/>
+                    <p:spinner placeholder="возраст" id="old" value="#{userBean.age}" min="16" max="100"/>
+                    <br/>
+                    <br/>
+                    <p:outputLabel value="Введите номер телефона: "/>
+                    <br/>
+                    <p:inputText placeholder="+375 (ХХ) ХХХ-ХХ-ХХ" id="phonenumber" value="#{userBean.phoneNumber}" required="true" styleClass="ui-inputfield ui-inputtext">
+                        <f:validateLength minimum="12"/>
+                    </p:inputText>
+                    <br/>
+                    <br/>
+                    <p:outputLabel value="Введите E-Mail: "/>
+                    <br/>
+                    <p:inputText placeholder="E-mail" id="email" value="#{userBean.login}" required="true" styleClass="ui-inputfield ui-inputtext">
+                        <f:validateLength minimum="12"/>
+                    </p:inputText>
+                    <br/>
+                    <br/>
+                    <p:outputLabel value="Введите пароль: "/>
+                    <br/>
+                    <p:password placeholder="Пароль" id="password1" value="#{userBean.sourcePassword}" required="true" styleClass="ui-inputfield ui-inputtext">
+                        <f:validateLength minimum="12"/>
+                    </p:password>
+                    <br/>
+                    <br/>
+                    <p:outputLabel value="Повторите пароль: "/>
+                    <br/>
+                    <p:password placeholder="Повторный пароль" id="password2" value="#{userBean.repeatPassword}" required="true" styleClass="ui-inputfield ui-inputtext">
+                        <f:validateLength minimum="12"/>
+                    </p:password>
+                    <br/>
+                    <br/>
+                    <p:commandButton update="registration" value="Зарегестрироваться" action="#{userBean.registration}" styleClass="ui-button"/>
+                    <br/>
+                    <br/>
+                    <p:button outcome="authorization.xhtml" value="Назад" styleClass="ui-button"/>
+                    <br/>
+                    <br/>
+                </center>
+                <br/>
+            </h:form>
+            <br/>
+        </div>
+    </div>
+
+    <div class="DownDiv">
+        <p:graphicImage styleClass="PrimeFacesLogo" value="resources/images/PrimeFacesLogo.png"></p:graphicImage>
+    </div>
+</h:body>
+</html>

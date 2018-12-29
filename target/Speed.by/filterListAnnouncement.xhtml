@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: bahatka
+  Date: 30.11.2018
+  Time: 14:03
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+    <title>Профиль</title>
+
+    <h:outputStylesheet name="filterListAnnouncement.css" library="css" />
+    <h:outputStylesheet name="speedBy.css" library="css" />
+
+</h:head>
+
+<h:body styleClass="BodyBackground">
+
+    <div class="UpDiv">
+
+        <p:link outcome="authorization.xhtml">
+            <p:graphicImage styleClass="LogoImage" value="resources/images/SpeedByLogo.jpg"></p:graphicImage>
+        </p:link>
+
+        <div class="SearchDiv">
+            <p:selectOneRadio id="console" value="#{filterListAnnouncement.filterParameter}">
+                <f:selectItem itemLabel="Иномарка" itemValue="Иномарка"/>
+                <f:selectItem itemLabel="Модель" itemValue="Модель" />
+                <f:selectItem itemLabel="Дате выпуска" itemValue="Дате выпуска" />
+                <f:selectItem itemLabel="Цене" itemValue="Цене" />
+            </p:selectOneRadio>
+
+            <p:inputText id="filterValue" value="#{filterListAnnouncement.filterValue}">
+                <f:validateRequired/>
+            </p:inputText>
+        </div>
+
+        <div class="ExitDiv">
+            <p:button value="Назад" styleClass="ui-button" outcome="profile.xhtml"></p:button>
+            <p:commandButton value="Выйти" action="#{profileUser.Exit}" styleClass="ui-button"></p:commandButton>
+        </div>
+
+    </div>
+
+    <div class="Div">
+
+        <h:form id="filterAnnouncement">
+            <p:dataScroller value="#{filterListAnnouncement.list}" var="announcement" chunkSize="5" mode="inline" scrollHeight="800">
+                <f:facet name="header">
+                    Объявления
+                </f:facet>
+
+                <h:panelGrid columns="2" style="width:100%" columnClasses="logo, detail">
+
+                    <p:outputPanel>
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <p:outputLabel value="Информация: " >
+                                <br/>
+                                <p:outputLabel value="Номер заказа " />
+                                <p:outputLabel value="##{announcement.id}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Иномарка:" />
+                                <p:outputLabel value="#{announcement.cars.car.name}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Модель:" />
+                                <p:outputLabel value="#{announcement.cars.name}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Двигатель:" />
+                                <p:outputLabel value="#{announcement.engine}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Цвет:" />
+                                <p:outputLabel value="#{announcement.color}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Дата выпуска:" />
+                                <p:outputLabel value="#{announcement.dateOfIssue}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Цена:" />
+                                <p:outputLabel value="#{announcement.price}$" style="font-weight: bold"/>
+                                <br/>
+                                <p:outputLabel value="Описание:" />
+                                <p:outputLabel value="#{announcement.description}" style="font-weight: bold"/>
+                            </p:outputLabel>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:form>
+
+    </div>
+</h:body>
+</html>

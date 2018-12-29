@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: bahatka
+  Date: 30.11.2018
+  Time: 14:03
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+    <title>Профиль</title>
+
+    <h:outputStylesheet name="editMyAnnouncement.css" library="css" />
+    <h:outputStylesheet name="speedBy.css" library="css" />
+
+</h:head>
+
+<h:body styleClass="BodyBackground">
+
+    <div class="UpDiv">
+
+        <p:link outcome="authorization.xhtml">
+            <p:graphicImage styleClass="LogoImage" value="resources/images/SpeedByLogo.jpg"></p:graphicImage>
+        </p:link>
+
+        <p:outputLabel styleClass="LogoText" value="Speed.by"></p:outputLabel>
+
+    </div>
+
+    <div class="Div">
+        <center>
+            <p:outputLabel value="Редактирование объявления"/>
+        </center>
+
+        <h:form id="editAnnouncement">
+            <p:growl showDetail="true" />
+
+            <br/>
+
+            <p:panel header="Объявление ##{editMyAnnouncement.announcement.id}" style="margin-bottom:10px; font-family: DokChampa; font-size: 20px;">
+                <h:panelGrid columns="4" cellpadding="6">
+
+                    <p:outputLabel for="car" value="Марка автомобиля: " />
+                    <p:selectOneMenu id="car" value="#{editMyAnnouncement.announcement.cars.car.name}" style="width:150px">
+                        <p:ajax listener="#{editMyAnnouncement.onCountryChange}" update="brand" />
+                        <f:selectItem itemLabel="Выберите марку" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{editMyAnnouncement.cars}" />
+                        <f:validateRequired for="car"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="brand" value="Модель: " />
+                    <p:selectOneMenu id="brand" value="#{editMyAnnouncement.announcement.cars.name}" style="width:150px">
+                        <f:selectItem itemLabel="Выберите модель:" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{editMyAnnouncement.brands}" />
+                        <f:validateRequired for="brand"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="engine" value="Двигатель: "/>
+                    <p:selectOneMenu id="engine" value="#{editMyAnnouncement.announcement.engine}" style="width:150px">
+                        <f:selectItem itemLabel="Выберите тип двигателя:" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{editMyAnnouncement.engines}" />
+                        <f:validateRequired for="engine"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Пробег:"/>
+                    <p:inputNumber value="#{editMyAnnouncement.announcement.mileage}" symbol=" км" symbolPosition="s"
+                                   decimalSeparator="," thousandSeparator=".">
+                    </p:inputNumber>
+
+                    <p:outputLabel for="color" value="Цвет:"/>
+                    <p:selectOneMenu id="color" value="#{editMyAnnouncement.announcement.color}" style="width:150px">
+                        <f:selectItem itemLabel="Выберите цвет иномарки:" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{editMyAnnouncement.colors}" />
+                        <f:validateRequired for="color"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="date" value="Дата выпуска: "/>
+                    <p:inputText id="date" value="#{editMyAnnouncement.announcement.dateOfIssue}" placeholder="23.06.1998">
+                        <f:validateRequired for="date"/>
+                    </p:inputText>
+
+                    <p:outputLabel for="price" value="Предварительная цена: "/>
+                    <p:inputNumber id="price" value="#{editMyAnnouncement.announcement.price}" symbol=" $" symbolPosition="s"
+                                   decimalSeparator="," thousandSeparator=".">
+                        <f:validateRequired for="price"/>
+                    </p:inputNumber>
+                </h:panelGrid>
+
+                <p:separator />
+                <p:commandButton value="Сохранить изменения" update="editAnnouncement" actionListener="#{editMyAnnouncement.updateAnnouncement}" process="@this"/>
+                <p:button value="Назад" outcome="profile.xhtml"/>
+            </p:panel>
+        </h:form>
+
+    </div>
+
+</h:body>
+</html>

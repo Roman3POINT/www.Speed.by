@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: bahatka
+  Date: 30.11.2018
+  Time: 14:03
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Авторизация</title>
+
+        <h:outputStylesheet name="authorization.css" library="css" />
+        <h:outputStylesheet name="speedBy.css" library="css" />
+
+    </h:head>
+
+
+    <h:body styleClass="BImage">
+
+        <div class="UpDiv">
+
+            <p:link outcome="authorization.xhtml">
+                <p:graphicImage styleClass="LogoImage" value="resources/images/SpeedByLogo.jpg"></p:graphicImage>
+            </p:link>
+
+            <p:outputLabel styleClass="LogoText" value="Speed.by"></p:outputLabel>
+
+            <a href="https://vk.com/">
+                <p:graphicImage styleClass="vkIcon" value="resources/images/VKIcon.png"></p:graphicImage>
+            </a>
+
+            <a href="https://www.instagram.com/">
+                <p:graphicImage styleClass="instagramIcon" value="resources/images/InstagramIcon.png"></p:graphicImage>
+            </a>
+
+            <a href="https://www.facebook.com/">
+                <p:graphicImage styleClass="facebookIcon" value="resources/images/FacebookIcon.png"></p:graphicImage>
+            </a>
+        </div>
+
+        <center>
+            <div class="RegisterDiv">
+                <br/>
+                <p:outputLabel styleClass="ui-hide-label" value="Форма Авторизации "></p:outputLabel>
+                <h:form id="sign">
+                    <br/>
+                    <p:outputLabel value="Логин: "/>
+                    <br/>
+                    <p:inputText placeholder="Логин" value="#{authorization.login}" id="login" required="true" styleClass="ui-inputfield ui-inputtext">
+                        <f:validateLength minimum="12"/>
+                    </p:inputText>
+                    <br/>
+                    <br/>
+                    <p:outputLabel value="Пароль: "/>
+                    <br/>
+                    <p:password placeholder="Пароль" value="#{authorization.password}" required="true" styleClass="ui-inputfield ui-inputtext">
+                        <f:validateLength minimum="8"/>
+                    </p:password>
+                    <br/>
+                    <br/>
+                </h:form>
+                <p:commandButton value="Войти" actionListener="#{profileUser.attr}" action="#{authorization.userAuthorization}">
+                    <f:attribute name="paramLogin" value="#{authorization.login}"/>
+                    <f:param name="againLogin" value="#{authorization.login}"/>
+                </p:commandButton>
+                <br/>
+                <br/>
+                <p:link value="Если вы забыли свой пароль" styleClass="ui-icon-link ui-menu-link"></p:link>
+                <br/>
+                <br/>
+                <p:button outcome="registration.xhtml" value="Зарегестрироваться" styleClass="ui-button"/>
+                <br/>
+            </div>
+        </center>
+
+        <div class="DownDiv">
+            <p:graphicImage styleClass="PrimeFacesLogo" value="resources/images/PrimeFacesLogo.png"></p:graphicImage>
+        </div>
+
+    </h:body>
+</html>
