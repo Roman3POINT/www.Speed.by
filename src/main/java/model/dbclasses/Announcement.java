@@ -2,6 +2,8 @@ package model.dbclasses;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(name = "ANNOUNCEMENT")
@@ -88,8 +90,12 @@ public class Announcement extends SpeedBy {
         return dateOfIssue;
     }
 
-    public void setDateOfIssue(Date dateOfIssue) {
-        this.dateOfIssue = dateOfIssue;
+    public void setDateOfIssue(String dateOfIssue) {
+        try {
+            this.dateOfIssue = new SimpleDateFormat("dd.MM.yyyy").parse(dateOfIssue);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

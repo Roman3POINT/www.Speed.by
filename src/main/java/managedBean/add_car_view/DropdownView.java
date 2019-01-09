@@ -11,7 +11,6 @@ import model.hibernate_util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -66,11 +65,7 @@ public class DropdownView implements Serializable {
         Announcement announcement = new Announcement();
         AnnouncementDAO announcementDAO = new AnnouncementDAO(sessionFactory);
 
-        try {
-            announcement.setDateOfIssue(new SimpleDateFormat("dd.MM.yyyy").parse(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        announcement.setDateOfIssue(date);
 
         announcement.setColor(color);
         announcement.setEngine(engine);

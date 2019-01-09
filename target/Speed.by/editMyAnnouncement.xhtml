@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Created by IntelliJ IDEA.
   User: bahatka
@@ -43,22 +44,23 @@
 
             <br/>
 
-            <p:panel header="Объявление ##{editMyAnnouncement.announcement.id}" style="margin-bottom:10px; font-family: DokChampa; font-size: 20px;">
-                <h:panelGrid columns="4" cellpadding="6">
+            <p:panel id="Panes" header="Объявление ##{editMyAnnouncement.announcement.id}" style="margin-bottom:10px; font-family: DokChampa; font-size: 20px;">
+                <h:panelGrid id="Grids" columns="4" cellpadding="6">
 
                     <p:outputLabel for="car" value="Марка автомобиля: " />
-                    <p:selectOneMenu id="car" value="#{editMyAnnouncement.announcement.cars.car.name}" style="width:150px">
-                        <p:ajax listener="#{editMyAnnouncement.onCountryChange}" update="brand" />
+                    <p:selectOneMenu id="car" value="#{editMyAnnouncement.car}" style="width:150px">
+                        <p:ajax listener="#{editMyAnnouncement.onCountryChange}" update="brand"/>
                         <f:selectItem itemLabel="Выберите марку" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{editMyAnnouncement.cars}" />
                         <f:validateRequired for="car"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="brand" value="Модель: " />
-                    <p:selectOneMenu id="brand" value="#{editMyAnnouncement.announcement.cars.name}" style="width:150px">
+                    <p:selectOneMenu id="brand" required="true" value="#{editMyAnnouncement.brand}" style="width:150px">
                         <f:selectItem itemLabel="Выберите модель:" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{editMyAnnouncement.brands}" />
                         <f:validateRequired for="brand"/>
+                        <p:ajax process="@this" partialSubmit="true"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="engine" value="Двигатель: "/>
@@ -66,11 +68,13 @@
                         <f:selectItem itemLabel="Выберите тип двигателя:" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{editMyAnnouncement.engines}" />
                         <f:validateRequired for="engine"/>
+                        <f:ajax process="@this" partialSumbit="true"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Пробег:"/>
                     <p:inputNumber value="#{editMyAnnouncement.announcement.mileage}" symbol=" км" symbolPosition="s"
                                    decimalSeparator="," thousandSeparator=".">
+                        <p:ajax process="@this" partialSumbit="true"/>
                     </p:inputNumber>
 
                     <p:outputLabel for="color" value="Цвет:"/>
@@ -78,17 +82,20 @@
                         <f:selectItem itemLabel="Выберите цвет иномарки:" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{editMyAnnouncement.colors}" />
                         <f:validateRequired for="color"/>
+                        <p:ajax process="@this" partialSumbit="true"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="date" value="Дата выпуска: "/>
                     <p:inputText id="date" value="#{editMyAnnouncement.announcement.dateOfIssue}" placeholder="23.06.1998">
                         <f:validateRequired for="date"/>
+                        <p:ajax process="@this" partialSumbit="true"/>
                     </p:inputText>
 
                     <p:outputLabel for="price" value="Предварительная цена: "/>
                     <p:inputNumber id="price" value="#{editMyAnnouncement.announcement.price}" symbol=" $" symbolPosition="s"
                                    decimalSeparator="," thousandSeparator=".">
                         <f:validateRequired for="price"/>
+                        <p:ajax process="@this" partialSumbit="true"/>
                     </p:inputNumber>
                 </h:panelGrid>
 

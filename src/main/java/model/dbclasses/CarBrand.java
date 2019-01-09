@@ -46,4 +46,9 @@ public class CarBrand extends SpeedBy {
     public boolean equals(Object obj) {
         return (this.name == ((CarBrand) obj).name);
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

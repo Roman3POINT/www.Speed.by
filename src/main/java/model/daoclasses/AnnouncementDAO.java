@@ -16,11 +16,4 @@ public class AnnouncementDAO extends SpeedByDAO<Announcement> {
         super(sessionFactory);
         this.sessionFactory = sessionFactory;
     }
-
-    public List<Announcement> getAllBrand(CarBrand brand) {
-        AnnouncementDAO announcementDAO = new AnnouncementDAO(sessionFactory);
-        List<Announcement> announcements = announcementDAO.createQuery("SELECT u FROM ANNOUNCEMENT WHERE u.cars = :", Announcement.class)
-                .setParameter("carBrand", brand).list();
-        return announcements;
-    }
 }

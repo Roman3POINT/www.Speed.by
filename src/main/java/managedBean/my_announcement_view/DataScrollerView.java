@@ -32,12 +32,6 @@ public class DataScrollerView {
         announcementList = service.getAnnouncementList();
     }
 
-    @PreDestroy
-    public void destroy() {
-        service = null;
-        announcementList = null;
-    }
-
     public Announcement getAnnouncement() {
         return announcement;
     }
@@ -48,7 +42,7 @@ public class DataScrollerView {
 
     public void editAnnouncement() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("announcement", announcement);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("myAnnouncement", announcement);
             FacesContext.getCurrentInstance().getExternalContext().redirect("editMyAnnouncement.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,5 +69,11 @@ public class DataScrollerView {
 
     public void setService(AnnouncementService service) {
         this.service = service;
+    }
+
+    @PreDestroy
+    public void destroy() {
+        service = null;
+        announcementList = null;
     }
 }

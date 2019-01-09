@@ -72,7 +72,9 @@
                 </p:commandButton>
                 <br/>
                 <br/>
-                <p:link value="Если вы забыли свой пароль" styleClass="ui-icon-link ui-menu-link"></p:link>
+                <p:link value="Если вы забыли свой пароль" styleClass="ui-icon-link ui-menu-link">
+                    <p:ajax process="@this" listener="#{authorization.sendMessageToEmail}"/>
+                </p:link>
                 <br/>
                 <br/>
                 <p:button outcome="registration.xhtml" value="Зарегестрироваться" styleClass="ui-button"/>

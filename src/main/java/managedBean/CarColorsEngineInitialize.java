@@ -37,7 +37,7 @@ public class CarColorsEngineInitialize {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         CarDAO carDAO = new CarDAO(sessionFactory);
-        Map<String, Map<String, String>> data = new HashMap<>();
+        Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
         List<Car> carList;
         Query<Car> queryCar = carDAO.createQuery("SELECT u FROM CAR u", Car.class);
         carList = queryCar.list();
@@ -45,10 +45,11 @@ public class CarColorsEngineInitialize {
         for(Car _car: carList) {
             cars.put(_car.getName(), _car.getName());
 
-            for(CarBrand carBrand: _car.getCarBrands())
+            for (CarBrand carBrand : _car.getCarBrands()) {
                 brands.put(carBrand.getName(), carBrand.getName());
-
-            data.put(_car.getName(), brands);
+                data.put(_car.getName(), brands);
+            }
+            brands = new HashMap<>();
         }
         return data;
     }

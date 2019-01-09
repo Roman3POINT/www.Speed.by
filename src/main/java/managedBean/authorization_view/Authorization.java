@@ -47,7 +47,7 @@ public class Authorization implements Serializable {
         UserDAO userDAO = new UserDAO(sessionFactory);
         User user = userDAO.createQuery("SELECT u FROM USERS u where u.email = :login", User.class).setParameter("login", login).getSingleResult();
 
-        if(password.equals(user.getPassword())) {
+        if (password.equals(user.getPassword())) {
             try {
                 password = " ";
                 FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");

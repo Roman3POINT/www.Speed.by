@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Created by IntelliJ IDEA.
   User: bahatka
@@ -29,19 +30,6 @@
             <p:graphicImage styleClass="LogoImage" value="resources/images/SpeedByLogo.jpg"></p:graphicImage>
         </p:link>
 
-        <div class="SearchDiv">
-            <p:selectOneRadio id="console" value="#{filterListAnnouncement.filterParameter}">
-                <f:selectItem itemLabel="Иномарка" itemValue="Иномарка"/>
-                <f:selectItem itemLabel="Модель" itemValue="Модель" />
-                <f:selectItem itemLabel="Дате выпуска" itemValue="Дате выпуска" />
-                <f:selectItem itemLabel="Цене" itemValue="Цене" />
-            </p:selectOneRadio>
-
-            <p:inputText id="filterValue" value="#{filterListAnnouncement.filterValue}">
-                <f:validateRequired/>
-            </p:inputText>
-        </div>
-
         <div class="ExitDiv">
             <p:button value="Назад" styleClass="ui-button" outcome="profile.xhtml"></p:button>
             <p:commandButton value="Выйти" action="#{profileUser.Exit}" styleClass="ui-button"></p:commandButton>
@@ -50,6 +38,45 @@
     </div>
 
     <div class="Div">
+
+        <h:form>
+
+            <p:outputLabel value="Параметры фильтрации:"/>
+
+            <br/>
+            <br/>
+            <h:panelGrid columns="2" cellpadding="2">
+                <p:outputLabel for="car" value="Марка автомобиля: " />
+                <p:selectOneMenu id="car" value="#{filterAnnouncementService.car}" converter="com.Speed.by.CarConverter" style="width:150px">
+                    <f:selectItem itemLabel="Выберите марку" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{filterAnnouncementService.cars}" />
+                    <f:validateRequired for="car"/>
+                    <p:ajax update="brand"  listener="#{filterAnnouncementService.onCountryChange}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="brand" value="Модель: " />
+                <p:selectOneMenu id="brand" value="#{filterAnnouncementService.carBrand}" style="width:150px">
+                    <f:selectItem itemLabel="Выберите модель:" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{filterAnnouncementService.brands}" />
+                    <f:converter converterId="com.Speed.by.CarBrandConverter"/>
+                    <f:validateRequired for="brand"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Пробег:"/>
+                <p:inputNumber value="#{filterAnnouncementService.mileage}" symbol=" км" symbolPosition="s"
+                               decimalSeparator="," thousandSeparator=".">
+                </p:inputNumber>
+
+                <p:outputLabel for="price" value="Предварительная цена:"/>
+                <p:inputNumber id="price" value="#{filterAnnouncementService.price}" symbol=" $" symbolPosition="s"
+                               decimalSeparator="," thousandSeparator=".">
+                    <f:validateRequired for="price"/>
+                </p:inputNumber>
+
+                <p:commandButton value="Отфильтровать" action="#{filterAnnouncementService.filter}"/>
+            </h:panelGrid>
+
+        </h:form>
 
         <h:form id="filterAnnouncement">
             <p:dataScroller value="#{filterListAnnouncement.list}" var="announcement" chunkSize="5" mode="inline" scrollHeight="800">
@@ -77,6 +104,10 @@
 
                                 <p:outputLabel value="Двигатель:" />
                                 <p:outputLabel value="#{announcement.engine}" style="font-weight: bold"/>
+                                <br/>
+
+                                <p:outputLabel value="Пробег:" />
+                                <p:outputLabel value="#{announcement.mileage} км" style="font-weight: bold"/>
                                 <br/>
 
                                 <p:outputLabel value="Цвет:" />

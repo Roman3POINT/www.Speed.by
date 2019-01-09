@@ -92,9 +92,4 @@ public class ProfileUser {
     public void setLogin(String login) {
         this.login = login;
     }
-
-    @PreDestroy
-    public void destroy() {
-        sessionFactory.close();
-    }
 }

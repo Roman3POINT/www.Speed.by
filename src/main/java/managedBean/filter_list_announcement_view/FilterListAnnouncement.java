@@ -2,44 +2,39 @@ package managedBean.filter_list_announcement_view;
 
 import model.daoclasses.AnnouncementDAO;
 import model.daoclasses.CarBrandDAO;
+import model.daoclasses.CarDAO;
 import model.dbclasses.Announcement;
+import model.dbclasses.Car;
 import model.dbclasses.CarBrand;
 import model.hibernate_util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import java.util.List;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class FilterListAnnouncement {
 
     private SessionFactory sessionFactory;
-
+    private AnnouncementDAO announcementDAO;
+    private CarDAO carDAO;
+    private CarBrandDAO carBrandDAO;
     private String filterParameter;
     private String filterValue;
     private List<Announcement> list;
-    private AnnouncementDAO announcementDAO;
-
-    @ManagedProperty("#{filterAnnouncementService}")
-    private FilterAnnouncementService service;
 
     @PostConstruct
     public void init() {
         sessionFactory = HibernateUtil.getSessionFactory();
 
         announcementDAO = new AnnouncementDAO(sessionFactory);
-        list = announcementDAO.createQuery("SELECT u FROM ANNOUNCEMENT u", Announcement.class).list();
-    }
+        carDAO = new CarDAO(sessionFactory);
+        carBrandDAO = new CarBrandDAO(sessionFactory);
 
-    public void filterBrand() {
-        CarBrandDAO carBrandDAO = new CarBrandDAO(sessionFactory);
-        CarBrand carBrand = carBrandDAO.createQuery("SELECT u FROM CARBRAND u WHERE u.name = :brandName", CarBrand.class)
-                .setParameter("brandName", filterValue).getSingleResult();
-        list = announcementDAO.getAllBrand(carBrand);
+        list = announcementDAO.createQuery("SELECT u FROM ANNOUNCEMENT u", Announcement.class).list();
     }
 
     public List<Announcement> getList() {
@@ -48,14 +43,6 @@ public class FilterListAnnouncement {
 
     public void setList(List<Announcement> list) {
         this.list = list;
-    }
-
-    public FilterAnnouncementService getService() {
-        return service;
-    }
-
-    public void setService(FilterAnnouncementService service) {
-        this.service = service;
     }
 
     public String getFilterParameter() {
@@ -73,5 +60,4 @@ public class FilterListAnnouncement {
     public void setFilterValue(String filterValue) {
         this.filterValue = filterValue;
     }
-
 }
